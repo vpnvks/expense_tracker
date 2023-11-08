@@ -1,6 +1,7 @@
 package functional;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -20,7 +21,8 @@ public	JTextField balanceField;
 public	JButton balanceButton;
 public	 XSSFWorkbook workbook;
 public FileInputStream fileInputStream;
-	 
+public XSSFSheet sheet;	 
+
 	public void addbutton(JFrame frame) {
 				
 		 balanceButton = new JButton("Add Balance");
@@ -53,12 +55,18 @@ public FileInputStream fileInputStream;
 
     public void addBalanceToExcel(double newBalance,JFrame frame)  {
         // Create or get the "Balance" sheet
+    	File fl = new File("expenses.xlsx");
+    	
+    	if(!fl.exists()) {
+    		workbook= new XSSFWorkbook();
+        	sheet= workbook.createSheet("Balance");	
+    	}
     	 try {
 			fileInputStream = new FileInputStream("expenses.xlsx");
 			workbook = new XSSFWorkbook(fileInputStream);
 		} catch (IOException e) {
-			System.out.println("problem in reading expense excel file");
-			e.printStackTrace();
+			
+        	return;
 		}
     	
         XSSFSheet balanceSheet = workbook.getSheet("Balance");
@@ -74,7 +82,15 @@ public FileInputStream fileInputStream;
         else { 
        
        Row row = balanceSheet.getRow(0);
-       double rowData =  row.getCell(0).getNumericCellValue();
+       double rowData = 0;
+       try {
+       rowData =  row.getCell(0).getNumericCellValue();
+       }catch(Exception e){
+    	   row = balanceSheet.createRow(0);
+           @SuppressWarnings("unused")
+		Cell cell = row.createCell(0);  
+       }
+       
        double newrowdata = rowData + newBalance;
        row.getCell(0).setCellValue(newrowdata);
        JOptionPane.showMessageDialog(frame, "Balance added successfully", "Success", JOptionPane.INFORMATION_MESSAGE);

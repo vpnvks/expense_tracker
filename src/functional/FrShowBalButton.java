@@ -44,7 +44,13 @@ public class FrShowBalButton {
 	        StringBuilder balanceText = new StringBuilder();
 	        FileInputStream fileInputStream;
 	        XSSFWorkbook workbook;
-	        Double totalexpense = ExpenseSum.addexpense();
+	        Double totalexpense;
+			try {
+				totalexpense = ExpenseSum.addexpense();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				return;
+			}
 			try {
 				fileInputStream = new FileInputStream("expenses.xlsx");
 				workbook = new XSSFWorkbook(fileInputStream);

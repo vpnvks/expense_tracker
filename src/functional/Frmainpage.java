@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-//import org.apache.log4j.Logger;
+
 
 import utilities.Workbook;
 
@@ -30,7 +30,7 @@ public class Frmainpage {
 	    public void ExpenseTrackerApp() {
 	        frame = new JFrame("Expense Tracker");
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        frame.setLayout(new GridLayout(9, 2, 10, 10));
+	        frame.setLayout(new GridLayout(10, 2, 10, 10));
 	       // Logger log = Logger.getLogger("devpinoyLogger");
 
 	        dateField = new JTextField();
@@ -73,6 +73,9 @@ public class Frmainpage {
 	        
 	        FrShowStats shwstat = new FrShowStats();
 	        shwstat.showstat(frame);
+	        
+	        FrClearAllData clrd = new FrClearAllData();
+	        clrd.clear(frame);
 	        
 	        saveButton.addActionListener(new ActionListener() {
 	            @Override

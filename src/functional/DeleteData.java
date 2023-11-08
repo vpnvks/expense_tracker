@@ -18,7 +18,7 @@ public class DeleteData {
 	            
 	            
 	            Workbook wk = new Workbook();
-	            wk.deleteRowFromExcel(frame, selectedIndex);
+	            wk.deleteRowFromExcel(frame, selectedIndex,"Expenses");
 	            SaveExcelData.saveinexcel(wk.workbook, frame);
 	           
 	           	            

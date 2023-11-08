@@ -1,5 +1,6 @@
 package functional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,9 +9,12 @@ import utilities.ReadingExcel;
 public class StatCalcExtend {
 	
 	
-	public double dispAdvStat() {
+	public double dispAdvStat() throws IOException {
 		
-		double balance = readbalance();
+		double balance = 0;
+		
+			balance = readbalance();
+		
 		double expense  = sumexpenses();
 		double percal = (expense/balance)*100;
 		
@@ -18,18 +22,24 @@ public class StatCalcExtend {
 		
 	}
 	
-	public double readbalance() {
+	public double readbalance() throws IOException {
 		List<Double> str = new ArrayList<>();
 		ReadingExcel rdexcl = new ReadingExcel();
-		str = rdexcl.readdata("expenses.xlsx", "Balance", 0,0);
-		double balance = str.get(0);
-		//double bal = Double.parseDouble(balance);
-		//System.out.println("balance value is "+balance);
+		double balance;
+		
+			str = rdexcl.readdata("expenses.xlsx", "Balance", 0,0);
+		
+		
+		try {
+		balance = str.get(0);
+		}catch(Exception e) {
+			balance=0;
+		}
 		return balance;
 		
 	}
 	
-	public double sumexpenses() {
+	public double sumexpenses() throws IOException {
 		List<String> str = new ArrayList<>();
 		ReadingExcel rdexcl = new ReadingExcel();
 		str = rdexcl.readdata("expenses.xlsx", "Expenses", 2,1);
@@ -40,7 +50,7 @@ public class StatCalcExtend {
 		 bal = Double.parseDouble(it.next());
 		 finalval = finalval+bal;
 		}
-		//System.out.println("total expense value is "+finalval);
+		
 		return finalval;
 		
 	}

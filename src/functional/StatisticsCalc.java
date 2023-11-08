@@ -29,7 +29,7 @@ public class StatisticsCalc {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			 JOptionPane.showMessageDialog(frame, "Balance and expenses are not yet added.", "Error", JOptionPane.ERROR_MESSAGE);
-			 e.printStackTrace();
+			 return;
 		}
         
 		
@@ -68,7 +68,13 @@ public class StatisticsCalc {
 	        /////////////////////
 	        
 	        StatCalcExtend stexd = new StatCalcExtend();
-	        double number = stexd.dispAdvStat();
+	        double number = 0;
+			try {
+				number = stexd.dispAdvStat();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				return;
+			}
 	        DecimalFormat df = new DecimalFormat("#.00");
 	        String formatted = df.format(number);
 	        
